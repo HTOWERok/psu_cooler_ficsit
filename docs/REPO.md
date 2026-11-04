@@ -9,7 +9,8 @@
 ```
 psu_cooler_ficsit/
 ├─ README.md              ← главная страница (RU), её читают первой
-├─ LICENSE                ← CC BY-NC-SA 4.0 (добавить перед публикацией)
+├─ LICENSE                ← CC BY-NC-SA 4.0
+├─ .gitignore             ← отсекает _wip, кэш Python, gcode и служебные .3mf
 ├─ stl/                   ← только печатные файлы + отчёты
 │  ├─ 01_base.stl
 │  ├─ 02_wall_front.stl
@@ -19,11 +20,15 @@ psu_cooler_ficsit/
 │  ├─ manifest.json       ← объёмы, габариты, ориентации
 │  └─ print_check.json    ← аудит печати
 ├─ renders/               ← превью: 01_hero, 02_open, 03_exploded, 04_front, 05_detail, 06_top
-├─ src/                   ← параметрический исходник (Python)
+├─ src/                   ← параметрический исходник (Python) + requirements.txt
+├─ print/                 ← пресеты ABS, проекты Bambu Studio (.3mf), скрипты сборки
 └─ docs/
    ├─ THINGIVERSE.md      ← текст публикации (EN)
+   ├─ CHANGELOG.md        ← по строке на версию
    └─ REPO.md             ← этот файл
 ```
+
+Живой пример: <https://github.com/HTOWERok/psu_cooler_ficsit> — тег `v1.0`, ветка `main`.
 
 Правила, которые экономят нервы:
 
@@ -109,3 +114,30 @@ psu_cooler_ficsit/
 - Указать **точные длины винтов** — вторая половина.
 - Честно написать, что модель проверена на нависания (у нас 0 поддержек, `print_check.py`).
 - Добавить строку «ремонтопригодность»: все узлы на винтах, фильтр снимается без инструмента.
+
+---
+
+## 9. Работа с репозиторием
+
+Репозиторий: <https://github.com/HTOWERok/psu_cooler_ficsit> (ветка `main`, тег `v1.0`).
+
+Обычный цикл правки:
+
+```powershell
+cd C:\Users\Craftroom\Desktop\DeepSeek\psu_cooler_ficsit
+python src\export_stl.py          # или просто поправили README
+git status                        # что изменилось
+git add -A
+git commit -m "v1.1: подгонка под БП 170×85×40"
+git push
+```
+
+Git for Windows (портативный) лежит в `%LOCALAPPDATA%\Programs\PortableGit`, `git` уже в PATH.
+Учётные данные сохранены в `%USERPROFILE%\.git-credentials` — когда срок токена истечёт,
+`git push` один раз спросит новый (в поле пароля — токен, не пароль от аккаунта).
+
+Релиз новой версии: `git tag -a v1.1 -m "..." && git push origin v1.1`, затем на GitHub
+Releases → Draft a new release → выбрать тег → приложить STL.
+
+Служебные каталоги (`print/_wip/`, `print/_gcode/`, `__pycache__`, `print/_slice_*.3mf`)
+в репозиторий не попадают — они в `.gitignore`.
