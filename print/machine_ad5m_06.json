@@ -1,0 +1,13 @@
+{
+    "type": "machine",
+    "name": "Flashforge Adventurer 5M 0.6 Nozzle - Копировать",
+    "inherits": "Flashforge Adventurer 5M 0.6 Nozzle",
+    "from": "User",
+    "instantiation": "true",
+    "host_type": "flashforge",
+    "print_host": "192.168.31.30",
+    "printer_extruder_id": ["1"],
+    "printer_extruder_variant": ["Direct Drive Standard"],
+    "printer_settings_id": "Flashforge Adventurer 5M 0.6 Nozzle - Копировать",
+    "version": "2.3.0.3"
+}

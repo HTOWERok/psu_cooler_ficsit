@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.py[cod]
+
+# Local scratch and intermediate slicing artifacts — not part of the published model
+print/_wip/
+print/_gcode/
+print/gcode_check/
+print/_slice_*.3mf
+renders/_wip/
+renders/_*.png
+renders/*.stl
+renders/*_corner.png
+renders/before_ears_fix.png
+renders/ears_before_after.png
+
+# OS
+Thumbs.db
+desktop.ini
+.DS_Store

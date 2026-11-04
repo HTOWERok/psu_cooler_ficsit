@@ -1,0 +1,37 @@
+{
+  "01_base": {
+    "layers": "129",
+    "weight_g": "130.78",
+    "time": "4h 10m 9s",
+    "support_markers": 0,
+    "gcode": "plate_1.gcode"
+  },
+  "02_wall_front": {
+    "layers": "155",
+    "weight_g": "58.82",
+    "time": "2h 10m 8s",
+    "support_markers": 0,
+    "gcode": "plate_1.gcode"
+  },
+  "03_wall_rear": {
+    "layers": "155",
+    "weight_g": "58.70",
+    "time": "2h 9m 57s",
+    "support_markers": 0,
+    "gcode": "plate_1.gcode"
+  },
+  "04_roof": {
+    "layers": "59",
+    "weight_g": "62.55",
+    "time": "1h 48m 21s",
+    "support_markers": 0,
+    "gcode": "plate_1.gcode"
+  },
+  "05_filter_tray": {
+    "layers": "59",
+    "weight_g": "38.84",
+    "time": "1h 4m 40s",
+    "support_markers": 0,
+    "gcode": "plate_1.gcode"
+  }
+}

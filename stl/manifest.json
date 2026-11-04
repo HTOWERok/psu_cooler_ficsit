@@ -1,0 +1,57 @@
+{
+  "01_base": {
+    "volume_cm3": 227.1,
+    "size_mm": [
+      190.0,
+      131.6,
+      26.0
+    ],
+    "orientation": "deck down (flip 180 about X)",
+    "watertight": true,
+    "file": "stl/01_base.stl"
+  },
+  "02_wall_front": {
+    "volume_cm3": 63.1,
+    "size_mm": [
+      176.0,
+      110.0,
+      31.2
+    ],
+    "orientation": "outer face down, features up",
+    "watertight": true,
+    "file": "stl/02_wall_front.stl"
+  },
+  "03_wall_rear": {
+    "volume_cm3": 63.1,
+    "size_mm": [
+      176.0,
+      110.0,
+      31.2
+    ],
+    "orientation": "outer face down, features up",
+    "watertight": true,
+    "file": "stl/03_wall_rear.stl"
+  },
+  "04_roof": {
+    "volume_cm3": 89.7,
+    "size_mm": [
+      176.0,
+      96.0,
+      12.0
+    ],
+    "orientation": "top face down",
+    "watertight": true,
+    "file": "stl/04_roof.stl"
+  },
+  "05_filter_tray": {
+    "volume_cm3": 44.1,
+    "size_mm": [
+      196.2,
+      116.0,
+      12.0
+    ],
+    "orientation": "as modelled",
+    "watertight": true,
+    "file": "stl/05_filter_tray.stl"
+  }
+}

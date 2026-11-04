@@ -1,0 +1,14 @@
+{
+  "type": "process",
+  "name": "DSH ABS 0.6 0.2mm",
+  "from": "User",
+  "instantiation": "true",
+  "print_settings_id": "DSH ABS 0.6 0.2mm",
+  "compatible_printers": [
+    "Flashforge Adventurer 5M 0.6 Nozzle"
+  ],
+  "enable_support": "0",
+  "brim_type": "outer_only",
+  "brim_width": "8",
+  "elefant_foot_compensation": "0.15"
+}

@@ -1,0 +1,92 @@
+[
+  {
+    "name": "01_base",
+    "size": [
+      190.0,
+      131.6,
+      26.0
+    ],
+    "fits": true,
+    "volume_cm3": 227.1,
+    "mass_g": {
+      "PLA": 126.7,
+      "PETG": 129.8,
+      "ABS": 106.3
+    },
+    "overhang_cm2": 22.54,
+    "bed_contact_cm2": 137.44,
+    "watertight": true
+  },
+  {
+    "name": "02_wall_front",
+    "size": [
+      176.0,
+      110.0,
+      31.2
+    ],
+    "fits": true,
+    "volume_cm3": 63.1,
+    "mass_g": {
+      "PLA": 35.2,
+      "PETG": 36.1,
+      "ABS": 29.5
+    },
+    "overhang_cm2": 27.72,
+    "bed_contact_cm2": 123.21,
+    "watertight": true
+  },
+  {
+    "name": "03_wall_rear",
+    "size": [
+      176.0,
+      110.0,
+      31.2
+    ],
+    "fits": true,
+    "volume_cm3": 63.1,
+    "mass_g": {
+      "PLA": 35.2,
+      "PETG": 36.1,
+      "ABS": 29.5
+    },
+    "overhang_cm2": 27.72,
+    "bed_contact_cm2": 123.21,
+    "watertight": true
+  },
+  {
+    "name": "04_roof",
+    "size": [
+      176.0,
+      96.0,
+      12.0
+    ],
+    "fits": true,
+    "volume_cm3": 89.7,
+    "mass_g": {
+      "PLA": 50.0,
+      "PETG": 51.2,
+      "ABS": 42.0
+    },
+    "overhang_cm2": 10.74,
+    "bed_contact_cm2": 145.76,
+    "watertight": true
+  },
+  {
+    "name": "05_filter_tray",
+    "size": [
+      196.2,
+      116.0,
+      12.0
+    ],
+    "fits": true,
+    "volume_cm3": 44.1,
+    "mass_g": {
+      "PLA": 24.6,
+      "PETG": 25.2,
+      "ABS": 20.6
+    },
+    "overhang_cm2": 0.89,
+    "bed_contact_cm2": 116.47,
+    "watertight": true
+  }
+]
