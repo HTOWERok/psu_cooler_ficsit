@@ -65,7 +65,7 @@ quiet.
 | Assembled | 190 × 132 × 148 mm |
 | PSU seat | 165 × 35.6 mm, bottom at 40 mm, 2 mm locator groove |
 | Fans | 2 × 80 × 80 × 10–12 mm (11 mm in the photos), 71.5 mm hole pitch |
-| Filament | ≈ 230 g ABS / 270 g PLA |
+| Filament | ≈ 359 g ABS (all five parts) |
 
 ### Printing
 
@@ -73,7 +73,7 @@ No supports on any part. Everything fits a 220 × 220 mm bed.
 
 | Part | Orientation | Notes |
 |---|---|---|
-| `01_base` | **upside down**, deck on the bed | 134 cm² first-layer contact |
+| `01_base` | **upside down**, deck on the bed | 137 cm² first-layer contact |
 | `02_wall_front` | **outer face down** | 0.16 mm layers look great in the hexes |
 | `03_wall_rear` | **outer face down** | mirror of the front |
 | `04_roof` | **top face down** | engraving lands on the first layer |

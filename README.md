@@ -160,6 +160,7 @@ psu_cooler_ficsit/
 │  └─ render.py          ← софтверный рендер (z-buffer + рёбра) для превью
 └─ docs/
    ├─ THINGIVERSE.md     ← готовое описание для публикации (EN)
+   ├─ PRINTABLES.md      ← текст под printables.com (EN, plain text для вставки)
    ├─ CHANGELOG.md       ← история версий с массами и временем
    ├─ REWORK_v2.md      ← разбор первой печати → план правок
    └─ REPO.md            ← как вести репозиторий, теги, лицензия
