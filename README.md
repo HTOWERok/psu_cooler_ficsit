@@ -3,6 +3,8 @@
 **Охлаждающая башня для блока питания ноутбука 165 × 82 × 35 мм**
 Параметрическая 3D-модель для FDM-печати. Стилистика — «производственный узел» из Satisfactory (fan-art, не связан с Coffee Stain Studios).
 
+**Опубликовано:** [Printables](https://www.printables.com/model/1907955-ficsit-style-cooling-tower-for-165-x-82-x-35-mm-la) · [релиз v1.2](https://github.com/HTOWERok/psu_cooler_ficsit/releases/tag/v1.2) · [исходник](https://github.com/HTOWERok/psu_cooler_ficsit)
+
 ![Hero](renders/01_hero.png)
 
 **Напечатано и собрано** — v1.2, ABS (красный цоколь/крышка/лоток, чёрные стенки), два 80-мм кулера внутри:
