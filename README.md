@@ -5,6 +5,21 @@
 
 ![Hero](renders/01_hero.png)
 
+**Напечатано и собрано** — v1.2, ABS (красный цоколь/крышка/лоток, чёрные стенки), два 80-мм кулера внутри:
+
+<table>
+  <tr>
+    <td width="50%"><img src="photos/01_assembled_front.jpg" alt="Собранная башня, вид спереди"></td>
+    <td width="50%"><img src="photos/03_assembled_angle.jpg" alt="Собранная башня, вид сверху"></td>
+  </tr>
+  <tr>
+    <td><img src="photos/02_assembled_top.jpg" alt="Крышка с гравировкой FICSIT"></td>
+    <td><img src="photos/04_inside_fans.jpg" alt="Внутри: два 80-мм кулера"></td>
+  </tr>
+</table>
+
+Остальные фото (цоколь снизу, термовставки) — в `photos/`.
+
 ---
 
 ## 1. Что это и зачем
@@ -133,6 +148,7 @@ psu_cooler_ficsit/
 ├─ stl/                  ← готовые STL (печать) + manifest.json + print_check.json
 ├─ renders/              ← превью (PNG) и STL в координатах сборки
 ├─ First_print/          ← фото первой печати; разбор — docs/REWORK_v2.md
+├─ photos/               ← фото готового собранного изделия (v1.2)
 ├─ print/                ← пресеты ABS, проекты OrcaSlicer, отчёты слайсера
 ├─ src/
 │  ├─ model.py           ← вся геометрия, параметры в словаре P
@@ -192,7 +208,7 @@ STL — стандартный бинарный, импортируется в �
 
 ## 11. Первая печать: что показала практика
 
-Напечатаны цоколь и одна задняя стенка (ABS, профиль `DSH_JAMG-HE ABS`). Фото — в `First_print/`, разбор замечаний — в `docs/REWORK_v2.md`.
+Напечатаны и собраны все пять деталей (ABS, профиль `DSH_JAMG-HE ABS`): фото готового изделия — в `photos/`, фото первой печати с замечаниями — в `First_print/`, разбор — в `docs/REWORK_v2.md`.
 
 <p>
   <img src="First_print/1.jpg" width="48%">
