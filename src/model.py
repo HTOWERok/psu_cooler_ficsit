@@ -1,5 +1,5 @@
 """
-model.py — FICSIT-style cooling tower for a 165x82x35 laptop power brick.
+model.py вЂ” FICSIT-style cooling tower for a 165x82x35 laptop power brick.
 
 Assembly coordinates:
     X = along the brick (165), Y = across the brick (35), Z = up, z=0 = table.
@@ -35,7 +35,7 @@ import geom as g
 
 P = dict(
     psu_l=165.0, psu_w=35.0, psu_h=82.0,
-    fan=80.0, fan_t=10.0, fan_holes=71.5,
+    fan=80.0, fan_t=11.0, fan_holes=71.5,
     base_x=190.0, base_y=108.0, base_corner=10.0,
     foot_h=6.0, base_h=20.0, base_chamfer=1.5,
     fan_cx=44.0,
@@ -58,6 +58,18 @@ FONT = r"C:\Windows\Fonts\arialbd.ttf"
 # --------------------------------------------------------------------------- #
 #  small helpers
 # --------------------------------------------------------------------------- #
+
+
+def _parts(geom):
+    """Flatten a shapely result into a list of polygons."""
+    if geom.is_empty:
+        return []
+    if geom.geom_type == "Polygon":
+        return [geom]
+    out = []
+    for gp in getattr(geom, "geoms", []):
+        out.extend(_parts(gp))
+    return out
 
 
 def _center_on_face(solid, x_center, z_center, y_face):
@@ -126,6 +138,23 @@ def build_base():
                          z0 - 0.5, P["pocket_z1"]) for sx in (-1, 1)]
     body = body - m3.Manifold.batch_boolean(pockets, m3.OpType.Add)
 
+    # ---- cable gutters along the pocket sides ---------------------------
+    # the fan wire leaves the frame at a corner, not at the middle: a 7 mm
+    # wide, 4 mm deep gutter along the front and rear side of each pocket
+    # (hidden under the filter tray) lets it reach the channels at x = +-44.
+    # It stops at the pocket ends, otherwise it would undercut the 5.6 mm
+    # wall between the two fans.
+    gutters = []
+    for sx in (-1, 1):
+        cx = sx * P["fan_cx"]
+        half = P["pocket"] / 2
+        pocket = g.rrect(P["pocket"], P["pocket"], 4.0, cx, 0.0)
+        ring = pocket.buffer(7.0, join_style=1).difference(pocket)
+        ring = ring.intersection(g.sbox(cx - half, -50.0, cx + half, 50.0))
+        for poly in _parts(ring):
+            gutters.append(g.extrude(poly, z0 - 0.2, z0 + 4.0))
+    body = body - m3.Manifold.batch_boolean(gutters, m3.OpType.Add)
+
     # ---- deck openings, screw ears, M4 heat-set holes --------------------
     holes, ears, ins = [], [], []
     for sx in (-1, 1):
@@ -151,7 +180,9 @@ def build_base():
     body = body - m3.Manifold.batch_boolean(ins, m3.OpType.Add)
 
     # ---- M3 heat-set seats for the wall brackets -------------------------
-    wseats = [g.cyl_z(sx * 70, sy * 36.5, 4.4 / 2, z1 - 6.5, z1 + 0.5, 32)
+    # 4.0 mm modelled: a 3.6 mm hole printed as 4.0 on the real part (holes
+    # come out ~0.4 smaller), and the insert (OD 4.0) needs 3.6 to bite
+    wseats = [g.cyl_z(sx * 70, sy * 36.5, 4.0 / 2, z1 - 6.5, z1 + 0.5, 32)
               for sx in (-1, 1) for sy in (-1, 1)]
     body = body - m3.Manifold.batch_boolean(wseats, m3.OpType.Add)
 
@@ -169,10 +200,11 @@ def build_base():
              for sx in (-1, 1)]
     body = body - m3.Manifold.batch_boolean(chans, m3.OpType.Add)
 
-    # ---- wing: two tie-down grooves -------------------------------------
-    grooves = [g.box(sx * 44 - 3, sx * 44 + 3, P["wing_y0"] + 6, P["wing_y1"] - 6, z1 - 2.0, z1 + 0.5)
-               for sx in (-1, 1)]
-    body = body - m3.Manifold.batch_boolean(grooves, m3.OpType.Add)
+    # ---- wing: two through slots for zip ties ---------------------------
+    # (the old 2 mm closed grooves held nothing, and the cable runs below)
+    slots = [g.box(sx * 44 - 9, sx * 44 + 9, 63.0, 67.0, -1.0, z1 + 0.5)
+             for sx in (-1, 1)]
+    body = body - m3.Manifold.batch_boolean(slots, m3.OpType.Add)
 
     # ---- front name plate -----------------------------------------------
     body = body + text_front("FICSIT", 17.0, 1.6, -P["base_y"] / 2 + 0.02, 15.6, bevel=0.45)
@@ -213,7 +245,9 @@ def build_wall():
     plate = plate - g.extrude(ring, -1.0, 1.3).rotate([90, 0, 0]).translate([0, yo, zc])
 
     # ---- hex perforation (two panels) ------------------------------------
-    af, web = 9.0, 3.3
+    # web 3.1 mm = exactly five 0.62 mm passes: the top surface stops being
+    # over-filled by gap fill on a 3.3 mm web
+    af, web = 9.0, 3.1
     px = af + web
     py = px * math.sqrt(3) / 2
     nx = int((L / 2 - 25) / px)
@@ -230,36 +264,37 @@ def build_wall():
             holes.append(g.hex_xz(x, zz, af, yi - 1, yo + 0.2))
     plate = plate - m3.Manifold.batch_boolean(holes, m3.OpType.Add)
 
-    # ---- brick gusset brackets (also the M3 fixings) ---------------------
-    brk = []
+    # ---- brick feet: solid blocks that stand on the base deck ------------
+    # (the old 4 mm cantilever shelf printed as a 28 mm thin tower and warped)
+    feet = []
     for sx in (-1, 1):
-        x0, x1 = sorted((sx * 68, sx * 86))
-        prof = [
-            (yi, z0), (yi, Z_SEAT), (12.0, Z_SEAT), (12.0, Z_SEAT - 4.0),
-            (36.0, Z_SEAT - 4.0), (yi, z0 + 2.0),
-        ]
-        brk.append(g.prism_yz(prof, x0, x1))
-    plate = plate + m3.Manifold.batch_boolean(brk, m3.OpType.Add)
+        x0, x1 = sorted((sx * 64, sx * 86))
+        feet.append(g.box(x0, x1, 12.0, yi, z0, Z_SEAT))
+    plate = plate + m3.Manifold.batch_boolean(feet, m3.OpType.Add)
 
-    # brick locator groove in the bracket top
+    # brick locator groove in the foot top
     gro = []
     for sx in (-1, 1):
-        x0, x1 = sorted((sx * 68, sx * 86))
+        x0, x1 = sorted((sx * 64, sx * 86))
         gro.append(g.box(x0 - 0.5, x1 + 0.5, -18.2, 18.2, Z_SEAT - 2.0, Z_SEAT + 0.5))
     plate = plate - m3.Manifold.batch_boolean(gro, m3.OpType.Add)
 
-    # ---- M3 clearance + countersink in the brackets ----------------------
-    # goes from the bottom of the tower (z=26, above the insert seat) right
-    # through the bracket shelf at z=40, with a 90 deg countersink on top
+    # ---- M3 clearance, through the foot, with a printable teardrop -------
+    # the hole runs horizontally while printing, so its top is a bridge:
+    # a 45-degree relief roof above it keeps the tunnel from sagging
     scr = []
     for sx in (-1, 1):
         scr.append(g.cyl_z(sx * 70, 36.5, 3.6 / 2, z0 - 0.5, Z_SEAT + 0.5, 32))
-        scr.append(g.cyl_z(sx * 70, 36.5, 1.8, Z_SEAT - 1.6, Z_SEAT + 0.4, 32, r_top=3.3))
+        scr.append(g.teardrop_z(sx * 70, 36.5, 1.8, z0 - 0.5, Z_SEAT + 0.5, up=-1))
     plate = plate - m3.Manifold.batch_boolean(scr, m3.OpType.Add)
 
     # ---- top rail + roof screw pads -------------------------------------
-    plate = plate + g.box(-72, 72, yi - 7.0, yo, z1 - 8.0, z1)
-    th = [g.cyl_z(sx * 60, yi - 3.5, 4.4 / 2, z1 - 8.2, z1 + 1, 32) for sx in (-1, 1)]
+    # 8 mm rail: the M3 hole keeps >=2.3 mm of material on both sides
+    plate = plate + g.box(-72, 72, yi - 8.0, yo, z1 - 8.0, z1)
+    th = []
+    for sx in (-1, 1):
+        th.append(g.cyl_z(sx * 60, yi - 3.5, 2.0, z1 - 8.2, z1 + 1, 32))
+        th.append(g.teardrop_z(sx * 60, yi - 3.5, 2.0, z1 - 8.2, z1 + 1, up=-1))
     plate = plate - m3.Manifold.batch_boolean(th, m3.OpType.Add)
 
     # ---- engraved hex "bolt heads" on the outer face ---------------------
@@ -353,14 +388,17 @@ def build_all():
 
 
 def to_print(name, m):
+    # NB: a flip must be a *rotation*. `mirror([0,0,1])` reflects the part and
+    # silently turns every asymmetric feature (lettering, dock side) into a
+    # mirror image вЂ” that is what printed the FICSIT logo backwards.
     if name == "01_base":
-        r, note = m.mirror([0, 0, 1]), "deck down (flip 180 about X)"
+        r, note = m.rotate([180, 0, 0]), "deck down (rotate 180 about X)"
     elif name == "02_wall_front":
         r, note = m.rotate([90, 0, 0]), "outer face down, features up"
     elif name == "03_wall_rear":
         r, note = m.rotate([-90, 0, 0]), "outer face down, features up"
     elif name == "04_roof":
-        r, note = m.mirror([0, 0, 1]), "top face down"
+        r, note = m.rotate([180, 0, 0]), "top face down (rotate 180 about X)"
     else:
         r, note = m, "as modelled"
     # centre on the plate (x/y) and drop it onto the bed (z = 0)
@@ -373,3 +411,4 @@ if __name__ == "__main__":
         bb = m.bounding_box()
         print(f"{name:16s} vol={m.volume()/1000:7.1f} cm3  "
               f"{bb[3]-bb[0]:6.1f} x {bb[4]-bb[1]:6.1f} x {bb[5]-bb[2]:6.1f}  genus={m.genus()}")
+

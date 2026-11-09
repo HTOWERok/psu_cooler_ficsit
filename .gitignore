@@ -14,6 +14,10 @@ renders/*_corner.png
 renders/before_ears_fix.png
 renders/ears_before_after.png
 
+# Photos of the first print: keep the originals, drop the analysis crops
+First_print/_zoom/
+renders/print_stl_front*.png
+
 # OS
 Thumbs.db
 desktop.ini

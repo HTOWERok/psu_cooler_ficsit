@@ -117,6 +117,18 @@ def hex_xz(cx, cz, across_flats, y0, y1, rot=0.0):
     return prism_xz(pts, y0, y1)
 
 
+def teardrop_z(cx, cy, r, z0, z1, up=-1, n=24):
+    """Cylinder with a 45-degree relief roof (a 'teardrop').
+
+    A horizontal hole prints with an unsupported bridge on top; adding a 45
+    degree peak in the `up` direction turns that bridge into two slopes.
+    """
+    ang = np.radians(np.linspace(-45.0, 225.0, n)) if up < 0 else np.radians(np.linspace(135.0, 405.0, n))
+    pts = [(cx + r * np.cos(a), cy + r * np.sin(a)) for a in ang]
+    pts.append((cx, cy + up * np.sqrt(2.0) * r))
+    return poly_prism_z(pts, z0, z1)
+
+
 def hex_yz(cy, cz, across_flats, x0, x1, rot=0.0):
     """Hex prism whose axis runs along X (profile in the YZ plane)."""
     x0, x1 = (x0, x1) if x0 <= x1 else (x1, x0)

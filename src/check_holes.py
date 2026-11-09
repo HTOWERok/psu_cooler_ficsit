@@ -30,8 +30,9 @@ def loops_at(manifold, z):
                       - np.dot(p[:, 1], np.roll(p[:, 0], -1)))
         if a < 0.5:
             continue
-        out.append((p[:, 0].mean(), p[:, 1].mean(),
-                    2 * np.sqrt(a / np.pi), a, np.ptp(p[:, 0]), np.ptp(p[:, 1])))
+        cx = 0.5 * (p[:, 0].min() + p[:, 0].max())
+        cy = 0.5 * (p[:, 1].min() + p[:, 1].max())
+        out.append((cx, cy, 2 * np.sqrt(a / np.pi), a, np.ptp(p[:, 0]), np.ptp(p[:, 1])))
     return out
 
 
@@ -86,7 +87,10 @@ def check(part, expected, z, label):
             bad += 1
             continue
         cx, cy, d_eq, area, w, h = cand[0]
-        ok = abs(d_eq - d) < TOL_DIA and max(w, h) < d + TOL_DIA
+        # a teardrop relief adds up to 0.9 mm to one side, so judge the small
+        # dimension strictly and only cap the long one
+        ok = (abs(min(w, h) - d) < TOL_DIA and max(w, h) < d + 0.95
+              and abs(d_eq - d) < 0.9)
         flag = "ok " if ok else "BAD"
         print(f"   {flag} {name:6s} ({x:7.2f},{y:7.2f}) d={d:4.2f} -> measured "
               f"d={d_eq:5.2f} bbox={w:5.2f}x{h:5.2f} centre=({cx:7.2f},{cy:7.2f})")
@@ -104,7 +108,7 @@ def main():
             for ay in (-1, 1):
                 exp.append((sx * 44 + ax * 35.75, ay * 35.75, 5.5, "M4 fan"))
         for sy in (-1, 1):
-            exp.append((sx * 70, sy * 36.5, 4.4, "M3 wall"))
+            exp.append((sx * 70, sy * 36.5, 4.0, "M3 wall"))
     bad = check(base, exp, 22.0, "01_base")
     bad += wall_thickness(base, exp, 22.0)
     # wall: the M3 clearance must pass through the bracket shelf

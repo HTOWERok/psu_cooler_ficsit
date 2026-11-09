@@ -36,7 +36,16 @@ PROCESS = os.path.join(HERE, "process_flat.json")
 FILAMENT = os.path.join(HERE, "filament_flat.json")
 MACHINE_FLAT = os.path.join(HERE, "machine_flat.json")
 
-PRINTER_NAME = "Flashforge Adventurer 5M 0.6 Nozzle - Копировать"
+PRINTER_NAME = "Flashforge Adventurer 5M 0.6 Nozzle - DSH"
+
+# Print host, exactly as Orca itself stores it when the printer preset
+# "Flashforge Adventurer 5M 0.6 Nozzle - DSH" is selected (verified by exporting
+# a probe 3MF with that preset through the CLI: Orca writes these two keys and
+# nothing else — printer_agent / printhost_* stay at their defaults).
+HOST = {
+    "host_type": "flashforge",
+    "print_host": "192.168.31.30",
+}
 
 PARTS = [
     ("01_base", "stl/01_base.stl"),
@@ -79,9 +88,8 @@ def patch(src, dst, printer):
     cfg["printer_settings_id"] = printer
     # the CLI defaults to the Cool Plate (35 °C) — force the textured PEI plate
     cfg["curr_bed_type"] = "Textured PEI Plate"
-    for k in ("print_host", "host_type"):
-        if k in machine:
-            cfg[k] = machine[k]
+    for k, v in HOST.items():
+        cfg[k] = v
     data["Metadata/project_settings.config"] = json.dumps(cfg, ensure_ascii=False).encode("utf-8")
 
     # put the single object at the plate origin, upright
@@ -133,6 +141,7 @@ def gcode_stats(gcode):
                 break
             markers += chunk.count(b";TYPE:Support")
     out["support_markers"] = markers
+    out["gcode_mb"] = round(os.path.getsize(gcode) / (1024 * 1024), 1)
     return {k: v for k, v in out.items() if v is not None}
 
 

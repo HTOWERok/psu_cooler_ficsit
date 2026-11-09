@@ -44,8 +44,9 @@ quiet.
 
 ### What you get
 
-* **Plinth** with two 80 × 80 × 10 mm fan pockets sunk in from below — the fans
-  sit 2.6 mm under the deck, out of sight, and are held by M4 heat-set inserts.
+* **Plinth** with two 80 × 80 fan pockets sunk in from below (12.6 mm deep, so
+  anything from 10 to 12 mm thick fits) — the fans sit just under the deck, out
+  of sight, and are held by M4 heat-set inserts.
 * **Snap-on filter tray** under the plinth with a 80 × 80 foam pocket per fan.
   Removes without tools for washing.
 * **Two perforated walls** with 66 hexagonal holes each (9 mm across flats),
@@ -63,7 +64,7 @@ quiet.
 |---|---|
 | Assembled | 190 × 132 × 148 mm |
 | PSU seat | 165 × 35.6 mm, bottom at 40 mm, 2 mm locator groove |
-| Fans | 2 × 80 × 80 × 10 mm, 71.5 mm hole pitch |
+| Fans | 2 × 80 × 80 × 10–12 mm (11 mm in the photos), 71.5 mm hole pitch |
 | Filament | ≈ 230 g ABS / 270 g PLA |
 
 ### Printing
@@ -88,8 +89,8 @@ No supports on any part. Everything fits a 220 × 220 mm bed.
 | Item | Qty |
 |---|---|
 | M4 heat-set insert, OD 5.5–6 × 6 mm | 8 |
-| M4 × 16–20 pan head screw | 8 |
-| M3 heat-set insert, OD 4.5 × 5–6 mm | 8 |
+| M4 × 18 pan head screw (16 also works) | 8 |
+| M3 heat-set insert, OD 4.0 × 5–6 mm (socket prints at ~3.6) | 8 |
 | M3 × 20 countersunk screw (walls) | 4 |
 | M3 × 18–20 countersunk screw (roof) | 4 |
 | Silicone foot Ø10 × 2 mm | 4 |
@@ -124,7 +125,8 @@ No supports on any part. Everything fits a 220 × 220 mm bed.
 
 ### Fan choice
 
-Any 80 × 80 × 10 mm fan with a 71.5 mm hole pattern works. USB fans are ideal
+Any 80 × 80 fan, 10 to 12 mm thick, with a 71.5 mm hole pattern works — the
+pocket is 12.6 mm deep. USB fans are ideal
 because they need no extra power supply. Two 80 mm fans move 20–35 CFM total,
 which is plenty for a 90–180 W brick: it needs airflow, not static pressure.
 

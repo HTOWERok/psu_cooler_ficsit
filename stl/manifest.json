@@ -1,17 +1,17 @@
 {
   "01_base": {
-    "volume_cm3": 227.1,
+    "volume_cm3": 215.8,
     "size_mm": [
       190.0,
       131.6,
       26.0
     ],
-    "orientation": "deck down (flip 180 about X)",
+    "orientation": "deck down (rotate 180 about X)",
     "watertight": true,
     "file": "stl/01_base.stl"
   },
   "02_wall_front": {
-    "volume_cm3": 63.1,
+    "volume_cm3": 76.6,
     "size_mm": [
       176.0,
       110.0,
@@ -22,7 +22,7 @@
     "file": "stl/02_wall_front.stl"
   },
   "03_wall_rear": {
-    "volume_cm3": 63.1,
+    "volume_cm3": 76.6,
     "size_mm": [
       176.0,
       110.0,
@@ -39,7 +39,7 @@
       96.0,
       12.0
     ],
-    "orientation": "top face down",
+    "orientation": "top face down (rotate 180 about X)",
     "watertight": true,
     "file": "stl/04_roof.stl"
   },

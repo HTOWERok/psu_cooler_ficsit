@@ -7,14 +7,14 @@
       26.0
     ],
     "fits": true,
-    "volume_cm3": 227.1,
+    "volume_cm3": 215.8,
     "mass_g": {
-      "PLA": 126.7,
-      "PETG": 129.8,
-      "ABS": 106.3
+      "PLA": 120.4,
+      "PETG": 123.4,
+      "ABS": 101.0
     },
-    "overhang_cm2": 22.54,
-    "bed_contact_cm2": 137.44,
+    "overhang_cm2": 23.8,
+    "bed_contact_cm2": 137.31,
     "watertight": true
   },
   {
@@ -25,13 +25,13 @@
       31.2
     ],
     "fits": true,
-    "volume_cm3": 63.1,
+    "volume_cm3": 76.6,
     "mass_g": {
-      "PLA": 35.2,
-      "PETG": 36.1,
-      "ABS": 29.5
+      "PLA": 42.7,
+      "PETG": 43.8,
+      "ABS": 35.8
     },
-    "overhang_cm2": 27.72,
+    "overhang_cm2": 29.1,
     "bed_contact_cm2": 123.21,
     "watertight": true
   },
@@ -43,13 +43,13 @@
       31.2
     ],
     "fits": true,
-    "volume_cm3": 63.1,
+    "volume_cm3": 76.6,
     "mass_g": {
-      "PLA": 35.2,
-      "PETG": 36.1,
-      "ABS": 29.5
+      "PLA": 42.7,
+      "PETG": 43.8,
+      "ABS": 35.8
     },
-    "overhang_cm2": 27.72,
+    "overhang_cm2": 29.1,
     "bed_contact_cm2": 123.21,
     "watertight": true
   },
